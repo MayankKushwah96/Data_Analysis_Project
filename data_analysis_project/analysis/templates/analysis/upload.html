@@ -1,0 +1,54 @@
+{% extends 'analysis/base.html' %}
+
+{% block content %}
+<style>
+    /* Flexbox centering */
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        width: 100%;
+        max-width: 500px; 
+        background-color: #fff;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .form-label {
+        font-weight: bold;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+    .form-control-file {
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+    }
+</style>
+
+<div class="centered-container">
+    <div class="card">
+        <h1 class="text-center">Upload CSV File</h1>
+        <form method="post" enctype="multipart/form-data" class="form-group">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_file" class="form-label">Choose CSV File</label>
+                <input type="file" name="file" id="id_file" class="form-control-file">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Upload</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

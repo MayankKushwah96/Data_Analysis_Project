@@ -1,0 +1,149 @@
+{% extends 'analysis/base.html' %}
+
+{% block content %}
+<style>
+    .result-container {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .tables-container {
+        display: flex;
+        justify-content: space-between;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        flex: 1;
+    }
+
+    .table-column {
+        flex: 1;
+        margin-right: 1.5rem;
+    }
+
+    .table-column:last-child {
+        margin-right: 0;
+    }
+
+    .section-header {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 0.5rem;
+    }
+
+    .table-container {
+        margin-bottom: 1.5rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+
+    .histogram-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+    }
+
+    .histogram-container h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 0.5rem;
+    }
+
+    .histogram-container img {
+        max-width: 100%;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+        background-color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    .histogram-container div {
+        margin-bottom: 1rem;
+    }
+
+    .btn-back-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 1.5rem;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.875rem;
+        width: auto;
+        min-width: 100px;
+    }
+
+    .btn-back:hover {
+        color: #fff;
+    }
+</style>
+
+<div class="result-container">
+    <div class="tables-container">
+        <div class="table-column">
+            <div class="section-header">Data Analysis Results</div>
+            <div class="table-container">
+                <h2>Summary Statistics</h2>
+                <div>{{ summary_stats|safe }}</div>
+            </div>
+        </div>
+        <div class="table-column">
+            <div class="section-header">Missing Values</div>
+            <div class="table-container">
+                <h2>Missing Values</h2>
+                <div>{{ missing_values|safe }}</div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="border: 1px solid #007bff; margin: 1.5rem 0;">
+
+    <div class="histogram-container">
+        <h2>Histograms</h2>
+        {% for hist in histograms %}
+            <div>
+                <h3>{{ hist.title }}</h3>
+                <img src="{{ hist.url }}" alt="Histogram">
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="btn-back-container">
+    <a href="{% url 'upload' %}" class="btn-back">Upload another File</a>
+</div>
+{% endblock %}
